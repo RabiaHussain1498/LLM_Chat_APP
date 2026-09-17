@@ -7,14 +7,14 @@ A full-stack chat application with a FastAPI backend that routes requests to mul
 ```
 LLM_Chat_APP/
 ├── backend/
+│   │── tests/
+│   │   └── test_providers.py
 │   ├── main.py          # FastAPI app and /chat endpoint
 │   ├── models.py        # Pydantic request/response schemas
 │   ├── providers.py     # Provider clients (Ollama, OpenAI, Gemini) + shared ask_model function
 │   ├── list_models.py   # Utility script to list available models
 │   ├── requirements.txt # Python dependencies
 │   └── .env.example     # Template for required environment variables
-│── tests
-│   │── test_providers.py # Test files
 ├── frontend/
 │   ├── src/              # React source files
 │   ├── public/           # Static assets
