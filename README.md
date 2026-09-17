@@ -13,12 +13,16 @@ LLM_Chat_APP/
 │   ├── list_models.py   # Utility script to list available models
 │   ├── requirements.txt # Python dependencies
 │   └── .env.example     # Template for required environment variables
+│── tests
+│   │── test_providers.py # Test files
 ├── frontend/
 │   ├── src/              # React source files
 │   ├── public/           # Static assets
 │   ├── package.json      # Node dependencies
 │   └── vite.config.js    # Vite configuration
 └── .gitignore
+
+
 ```
 
 ## Features
@@ -56,6 +60,15 @@ LLM_Chat_APP/
    ```
 
    The API will be available at `http://localhost:8000`, with interactive docs at `http://localhost:8000/docs`.
+
+## Running Backend Tests
+
+The provider tests use a fake client, so they do not contact Ollama or spend hosted API credit:
+
+```bash
+cd backend
+python3 -m pytest -q
+```
 
 ## Frontend Setup
 
