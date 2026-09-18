@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from models import ChatRequest, ChatResponse
@@ -7,7 +8,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite's default dev port
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -17,16 +18,15 @@ app.add_middleware(
 def health():
     return {"status": "ok"}
 
-
 @app.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):
     try:
         if req.provider == "ollama":
             client = get_ollama_client()
-            text = ask_model(client, req.model, req.prompt)
+            text = await asyncio.to_thread(ask_model, client, req.model, req.prompt)
         elif req.provider == "openai":
             client = get_openai_client()
-            text = ask_model(client, req.model, req.prompt)
+            text = await asyncio.to_thread(ask_model, client, req.model, req.prompt)
         elif req.provider == "gemini":
             text = await call_gemini(req.prompt, req.model)
         else:
